@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+
+{% block contents %}
+    <h1 class="display-4 mb-5">ArtikelKita.com</h1>
+
+    
+    {% for artikel in artikel_list %}
+        <div class="card text-center mt-3 border-info">
+            <div class="card-header">
+            {{artikel.kategori}}
+            </div>
+            <div class="card-body">
+            <h5 class="card-title">{{artikel.judul}}</h5>
+            <p class="card-text">{{artikel.body|truncatewords:50}}</p>
+            <a href="{% url 'artikel:artikeldetail' artikel.slug %}" class="btn btn-primary">Selengkapnya</a>
+            </div>
+            <div class="card-footer text-muted">
+            {{artikel.updated|date}}
+            </div>
+        </div>
+    {% endfor %}
+        
+{% endblock contents %}
+    

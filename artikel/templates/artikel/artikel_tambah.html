@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+
+{% block contents %}
+
+<h1 class="display-4">Tambah Artikel</h1>
+<form method="POST" class="form-artikel pb-5">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="{{form.judul.id_for_label}}">{{form.judul.label}}</label>
+        <input type="text" class="form-control col-sm-4" id="{{form.judul.id_for_label}}" required
+            name="{{form.judul.name}}" maxlength="{{form.judul.max}}">
+    </div>
+    <div class="form-group">
+        <label for="{{form.body.id_for_label}}">{{form.body.label}}</label>
+        <textarea type="text" class="form-control" rows="10" id="{{form.body.id_for_label}}" required
+            name="{{form.body.name}}"></textarea>
+    </div>
+    <div class="form-group">
+        <label for="{{form.kategori.id_for_label}}">{{form.kategori.label}}</label>
+        <input type="text" class="form-control col-sm-4" id="{{form.kategori.id_for_label}}" required
+            name="{{form.kategori.name}}" maxlength="{{form.kategori.max}}">
+    </div>
+    <div class="form-group">
+        <label for="{{form.penulis.id_for_label}}">{{form.penulis.label}}</label>
+        <input type="text" class="form-control col-sm-4" id="{{form.penulis.id_for_label}}" required
+            name="{{form.penulis.name}}" maxlength="{{form.penulis.max}}">
+    </div>
+    <button type="submit" class="btn btn-primary">Tambah</button>
+
+    <a class="t-ajax btn btn-danger">Tambah with ajax</a>
+</form>
+{% endblock contents %}
+
+
+{% block scripts %}
+<script type="text/javascript">
+    console.log('tes');
+    $(document).ready(function () {
+        $('t-ajax').click(function () {
+            console.log('berhasil');
+            let dataDariForm = $('form-artikel').serialize();
+            $.ajax({
+                type: 'POST',
+                url: '{% url "artikel:artikeltambah" %}',
+                data: dataDariForm,
+                dataType: 'json',
+                success: function () {
+                    alert('Data berhasil ditambahkan');
+                }
+            });
+        });
+    });
+</script>
+{% endblock scripts %}

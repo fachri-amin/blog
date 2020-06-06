@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+
+{% block contents %}
+    <h3>Apakah anda yakin ingin menghapus artikel dengan judul <b>{{object.judul}}?</b></h3>
+    <form method="POST" class="mt-5 pb-5 text-center">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-primary col-lg-2">Yes</button>
+        <a href="{% url 'artikel:artikelmanage' %}" class="btn btn-danger col-lg-2">No</a>
+    </form>
+{% endblock contents %}
+    

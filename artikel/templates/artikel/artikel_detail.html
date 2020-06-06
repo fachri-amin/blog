@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+
+{% block pageTitle` %}
+    Detail | {{object.judul}}
+{% endblock pageTitle` %}
+
+
+{% block contents %}
+    <div class="row">
+        <div class="col-md-8 pr-5">
+            <h1>{{object.judul}}</h1>
+            <h5 class="border-bottom mb-5">Oleh: {{object.penulis}}</h5>
+            <p class="text-justify">{{object.body}}</p>
+        </div>
+        <div class="col-sm-2 border-left border-top">
+            <h2>Kategori</h2>
+            <ul class="nav flex-column">
+                
+                {% for kategori in kategori_list %}
+                <li class="nav-item border-bottom">
+                    <a class="nav-link active" href="{% url 'artikel:artikelkategori' kategori %}">{{kategori}}</a>
+                </li>
+                {% endfor %}
+                
+            </ul>
+            <h3 class="mt-5">Serupa</h3>
+            <ul class="nav flex-column">
+                
+                {% for artikel in artikel_serupa %}
+                    
+                    {% if forloop.counter <= 3 %}
+                    <li class="nav-item border-bottom">
+                        <a class="nav-link active" href="{% url 'artikel:artikeldetail' artikel.slug %}">
+                            <h6>{{artikel.judul}}</h6>
+                        </a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item border-bottom">
+                        <a class="nav-link active" href="{% url 'artikel:artikelkategori' artikel.kategori 1 %}">Selengkapnya</a>
+                    </li>
+                    {% endif %}
+                        
+                {% endfor %}
+
+            </ul>
+        </div>
+    </div>
+{% endblock contents %}
+    
+    
